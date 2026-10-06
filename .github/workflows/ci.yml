@@ -1,0 +1,28 @@
+name: C++ CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            script: ci.bat
+            shell: cmd
+          - os: ubuntu-latest
+            script: ./ci.sh
+            shell: bash
+          - os: macos-latest
+            script: ./ci.sh
+            shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure, build, and test
+        run: ${{ matrix.script }}
+        shell: ${{ matrix.shell }}

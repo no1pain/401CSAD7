@@ -44,7 +44,7 @@ evidence for each result without exposing secret values.
 7. **BasicAddition:** confirm the test is named `BasicAddition` in test
    source/registration and verify a passing result using an existing,
    read-only test result or by locating the registered test executable and
-   invoking it with the GoogleTest filter `--gtest_filter=BasicAddition`.
+   invoking it with the GoogleTest filter `--gtest_filter=BasicMath.BasicAddition`.
    Run it from outside the repository if a working directory is needed. Do
    not reconfigure, rebuild, or run CTest if it would write to the repository.
 8. **`.gitignore`:** confirm it excludes generated build output.

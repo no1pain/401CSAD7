@@ -1,0 +1,24 @@
+name: C++ CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Windows CI script
+        if: runner.os == 'Windows'
+        run: .\ci.bat
+        shell: cmd
+      - name: Run Unix CI script
+        if: runner.os != 'Windows'
+        run: ./ci.sh
+        shell: bash

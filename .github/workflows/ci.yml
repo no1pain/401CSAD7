@@ -11,18 +11,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: windows-latest
-            script: ci.bat
-            shell: cmd
-          - os: ubuntu-latest
-            script: ./ci.sh
-            shell: bash
-          - os: macos-latest
-            script: ./ci.sh
-            shell: bash
+        os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
-      - name: Configure, build, and test
-        run: ${{ matrix.script }}
-        shell: ${{ matrix.shell }}
+      - name: Run Windows CI script
+        if: runner.os == 'Windows'
+        run: .\ci.bat
+        shell: cmd
+      - name: Run Unix CI script
+        if: runner.os != 'Windows'
+        run: ./ci.sh
+        shell: bash
